@@ -1,64 +1,93 @@
 <?php
 session_start();
-// Nếu người dùng đã đăng nhập, chuyển hướng theo vai trò phù hợp
-if (isset($_SESSION['username'])) {
-    if ($_SESSION['role'] == 'NHANVIEN') {
-        header("Location: admin/index.php");
-        exit;
-    } else {
-        header("Location: customer/index.php");
-        exit;
-    }
+if (!isset($_SESSION['username']) || $_SESSION['role'] != 'NHANVIEN') {
+    header("Location: ../login.php");
+    exit;
 }
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
-<!-- Hero Section với hiệu ứng Parallax và Overlay Gradient -->
-<section class="hero-section" style="background: url('/assets/images/banner.jpg') no-repeat center center fixed; background-size: cover; height: 600px; position: relative;">
-  <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));"></div>
-  <div class="hero-content container text-center" style="position: relative; top: 40%; transform: translateY(-40%);" data-aos="fade-up">
-      <!-- Tăng kích thước chữ (ví dụ 4rem) và sử dụng font-weight cao -->
-      <h1 class="display-4 text-white font-weight-bold animate__animated animate__fadeInDown" style="font-size: 4rem;">
-         Chào mừng đến với Đăng bán giày
-      </h1>
-      <!-- Tăng kích thước dòng giới thiệu (ví dụ 1.5rem) -->
-      <p class="lead text-white animate__animated animate__fadeInUp" style="font-size: 1.5rem;">
-         Nơi phong cách và chất lượng hòa quyện, giúp bạn tỏa sáng trong từng bước chân.
-      </p>
-      <div class="mt-4">
-          <a href="/login.php" class="btn btn-lg btn-primary animate__animated animate__fadeInUp">Đăng nhập</a>
-          <a href="/register.php" class="btn btn-lg btn-outline-light animate__animated animate__fadeInUp">Đăng ký ngay</a>
-      </div>
+
+<div class="container mt-5">
+  <!-- Jumbotron tiêu đề -->
+  <div class="jumbotron jumbotron-fluid bg-dark text-white shadow-lg rounded">
+    <div class="container text-center">
+      <h1 class="display-3 font-weight-bold">Trang Quản Lý</h1>
+      <p class="lead">Hệ thống điều hành chuyên nghiệp – Quản lý và theo dõi mọi hoạt động một cách trực quan.</p>
+    </div>
   </div>
-</section>
-
-<!-- About Section -->
-<section class="about-section py-5" data-aos="fade-up">
-  <div class="container">
-      <h2 class="text-center mb-4">Giới thiệu về chúng tôi</h2>
-      <div class="row align-items-center">
-         <div class="col-md-6">
-           <img src="/assets/images/intro.jpg" class="img-fluid rounded shadow" alt="Giới thiệu">
-         </div>
-         <div class="col-md-6">
-           <p class="lead text-justify" style="font-size: 1.5rem; line-height: 1.8rem;">
-             Tại shop "Đăng bán giày" chúng tôi luôn cập nhật những mẫu giày thời trang độc đáo, 
-             chất lượng vượt trội cùng phong cách hiện đại. Tự tin tỏa sáng mỗi ngày với những đôi giày 
-             được lựa chọn kỹ càng và dịch vụ khách hàng chuyên nghiệp.
-           </p>
-         </div>
+  
+  <!-- Các card quản lý -->
+  <div class="row">
+    <!-- Quản lý sản phẩm -->
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-box-open fa-3x text-primary mb-3"></i>
+          <h5 class="card-title">Quản lý sản phẩm</h5>
+          <p class="card-text">Cập nhật, thêm mới và chỉnh sửa các sản phẩm giày.</p>
+          <a href="products.php" class="btn btn-outline-primary btn-block">Xem ngay</a>
+        </div>
       </div>
+    </div>
+    <!-- Quản lý bộ sưu tập -->
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-layer-group fa-3x text-success mb-3"></i>
+          <h5 class="card-title">Quản lý bộ sưu tập</h5>
+          <p class="card-text">Sắp xếp và quản lý các bộ sưu tập giày độc đáo.</p>
+          <a href="collections.php" class="btn btn-outline-success btn-block">Xem ngay</a>
+        </div>
+      </div>
+    </div>
+    <!-- Quản lý voucher -->
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-ticket-alt fa-3x text-warning mb-3"></i>
+          <h5 class="card-title">Quản lý voucher</h5>
+          <p class="card-text">Điều hành và cập nhật các chương trình khuyến mãi.</p>
+          <a href="vouchers.php" class="btn btn-outline-warning btn-block">Xem ngay</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quản lý size -->
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-ruler fa-3x text-secondary mb-3"></i>
+          <h5 class="card-title">Quản lý Size</h5>
+          <p class="card-text">Quản lý các kích thước giày cho sản phẩm.</p>
+          <a href="size_management.php" class="btn btn-outline-secondary btn-block">Xem ngay</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quản lý đơn hàng -->
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-shopping-cart fa-3x text-info mb-3"></i>
+          <h5 class="card-title">Quản lý đơn hàng</h5>
+          <p class="card-text">Theo dõi và xử lý các đơn hàng từ khách hàng.</p>
+          <a href="orders.php" class="btn btn-outline-info btn-block">Xem ngay</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Đăng xuất -->
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-sign-out-alt fa-3x text-danger mb-3"></i>
+          <h5 class="card-title">Đăng xuất</h5>
+          <p class="card-text">Thoát khỏi hệ thống quản trị.</p>
+          <a href="../logout.php" class="btn btn-outline-danger btn-block">Đăng xuất</a>
+        </div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
-<?php include 'includes/footer.php'; ?>
-
-<!-- Thư viện AOS cho hiệu ứng scroll -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script>
-  AOS.init({
-    duration: 1000,
-    easing: 'ease-in-out',
-    once: true
-  });
-</script>
+<?php include '../includes/footer.php'; ?>
